@@ -17,7 +17,7 @@ jobs:
         working-directory: auth-manager
     env:
       ENV: prod
-      IMAGE_NAME: ${{ vars.PUBLICECR_URI }}
+      SERVICE_NAME: ${{ vars.PRIVATEECR_URI }}
 
     steps:
       - name: Checkout code
@@ -27,12 +27,10 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ vars.AWS_ECR_PUBLISH_ROLE_ARN }}
-          aws-region: ${{ vars.PUBLICECR_REGION }}
+          aws-region: ${{ vars.ECR_REGION }}
 
       - name: Authenticate with AWS Public ECR
         uses: aws-actions/amazon-ecr-login@v2
-        with:
-          registry-type: public
 
       - name: Build and publish the Docker image to AWS ECR
         run: make deploy

@@ -6,7 +6,8 @@
 export ENV ?= dev
 export APP_VERSION := $(shell git describe --tags --always --dirty --abbrev=10 2>/dev/null || echo "0.0.0")
 export COMMIT_SHA := $(shell git rev-parse --short=10 HEAD 2>/dev/null || echo "unknown")
-export SERVICE_NAME := auth-manager
+export APP_NAME := auth-manager
+export SERVICE_NAME ?= $(APP_NAME)
 export SERVICE_TAG := $(APP_VERSION)
 export SERVICE_TAG_LABEL := latest
 
